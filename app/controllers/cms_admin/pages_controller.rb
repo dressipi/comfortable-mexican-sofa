@@ -1,4 +1,6 @@
 class CmsAdmin::PagesController < CmsAdmin::BaseController
+  
+  helper :cms_content
 
   before_filter :check_for_layouts, :only => [:new, :edit]
   before_filter :build_cms_page,    :only => [:new, :create]
