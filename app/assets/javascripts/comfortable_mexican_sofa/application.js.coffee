@@ -1,4 +1,4 @@
-#= require jquery-1.10.0.min
+#= require jquery-1.11.0.min
 #= require jquery_ujs
 #= require jquery.ui-1.10.3.all
 #= require codemirror
