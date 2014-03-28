@@ -1,4 +1,4 @@
-//= require jquery.ui.core
+//= require jquery.ui-1.10.3.core
 
 /*!
  * jQuery UI Datepicker 1.10.3

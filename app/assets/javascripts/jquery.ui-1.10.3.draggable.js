@@ -1,6 +1,6 @@
-//= require jquery.ui.core
-//= require jquery.ui.widget
-//= require jquery.ui.mouse
+//= require jquery.ui-1.10.3.core
+//= require jquery.ui-1.10.3.widget
+//= require jquery.ui-1.10.3.mouse
 
 /*!
  * jQuery UI Draggable 1.10.3

@@ -1,4 +1,4 @@
-//= require jquery.ui.effect
+//= require jquery.ui-1.10.3.effect
 
 /*!
  * jQuery UI Effects Explode 1.10.3

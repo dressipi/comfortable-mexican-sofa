@@ -1,9 +1,9 @@
-//= require jquery.ui.core
-//= require jquery.ui.widget
-//= require jquery.ui.button
-//= require jquery.ui.draggable
-//= require jquery.ui.position
-//= require jquery.ui.resizable
+//= require jquery.ui-1.10.3.core
+//= require jquery.ui-1.10.3.widget
+//= require jquery.ui-1.10.3.button
+//= require jquery.ui-1.10.3.draggable
+//= require jquery.ui-1.10.3.position
+//= require jquery.ui-1.10.3.resizable
 
 /*!
  * jQuery UI Dialog 1.10.3

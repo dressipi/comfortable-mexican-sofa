@@ -1,7 +1,7 @@
-//= require jquery.ui.core
-//= require jquery.ui.widget
-//= require jquery.ui.mouse
-//= require jquery.ui.draggable
+//= require jquery.ui-1.10.3.core
+//= require jquery.ui-1.10.3.widget
+//= require jquery.ui-1.10.3.mouse
+//= require jquery.ui-1.10.3.draggable
 
 /*!
  * jQuery UI Droppable 1.10.3
