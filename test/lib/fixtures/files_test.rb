@@ -5,11 +5,16 @@ require_relative '../../test_helper'
 class FixtureFilesTest < ActiveSupport::TestCase
   
   def test_creation
-    Cms::File.delete_all
+    Comfy::Cms::File.delete_all
     
-    assert_difference 'Cms::File.count' do
+    # need to have categories present before linking
+    site = comfy_cms_sites(:default)
+    site.categories.create!(:categorized_type => 'Comfy::Cms::File', :label => 'category_a')
+    site.categories.create!(:categorized_type => 'Comfy::Cms::File', :label => 'category_b')
+    
+    assert_difference 'Comfy::Cms::File.count' do
       ComfortableMexicanSofa::Fixture::File::Importer.new('sample-site', 'default-site').import!
-      assert file = Cms::File.last
+      assert file = Comfy::Cms::File.last
       
       assert_equal 'Fixture File',       file.label
       assert_equal 'sample.jpg',           file.file_file_name
@@ -21,13 +26,13 @@ class FixtureFilesTest < ActiveSupport::TestCase
   end
   
   def test_update
-    file = cms_files(:default)
+    file = comfy_cms_files(:default)
     file.update_column(:updated_at, 10.years.ago)
     assert_equal 'sample.jpg',           file.file_file_name
     assert_equal 'Default File',        file.label
     assert_equal 'Default Description', file.description
     
-    assert_no_difference 'Cms::Snippet.count' do
+    assert_no_difference 'Comfy::Cms::Snippet.count' do
       ComfortableMexicanSofa::Fixture::File::Importer.new('sample-site', 'default-site').import!
       file.reload
       assert_equal 'sample.jpg',           file.file_file_name
@@ -37,7 +42,7 @@ class FixtureFilesTest < ActiveSupport::TestCase
   end
   
   def test_update_ignore
-    file = cms_files(:default)
+    file = comfy_cms_files(:default)
     file_path = File.join(ComfortableMexicanSofa.config.fixtures_path, 'sample-site', 'files', 'sample.jpg')
     attr_path = File.join(ComfortableMexicanSofa.config.fixtures_path, 'sample-site', 'files', '_sample.jpg.yml')
     
@@ -52,7 +57,7 @@ class FixtureFilesTest < ActiveSupport::TestCase
   end
   
   def test_update_force
-    file = cms_files(:default)
+    file = comfy_cms_files(:default)
     ComfortableMexicanSofa::Fixture::File::Importer.new('sample-site', 'default-site').import!
     file.reload
     assert_equal 'Default File', file.label
@@ -63,17 +68,17 @@ class FixtureFilesTest < ActiveSupport::TestCase
   end
   
   def test_delete
-    old_file = cms_files(:default)
+    old_file = comfy_cms_files(:default)
     old_file.update_column(:file_file_name, 'old')
     
-    assert_no_difference 'Cms::File.count' do
+    assert_no_difference 'Comfy::Cms::File.count' do
       ComfortableMexicanSofa::Fixture::File::Importer.new('sample-site', 'default-site').import!
-      assert file = Cms::File.last
+      assert file = Comfy::Cms::File.last
       assert_equal 'sample.jpg',          file.file_file_name
       assert_equal 'Fixture File',        file.label
       assert_equal 'Fixture Description', file.description
       
-      assert Cms::File.where(:id => old_file.id).blank?
+      assert Comfy::Cms::File.where(:id => old_file.id).blank?
     end
   end
   
@@ -91,7 +96,9 @@ class FixtureFilesTest < ActiveSupport::TestCase
     assert_equal ({
       'label'       => 'Default File',
       'description' => 'Default Description',
-      'categories'  => ['Default']
+      'categories'  => ['Default'],
+      'page'        => nil,
+      'block'       => nil
     }), YAML.load_file(attr_path)
     
     FileUtils.rm_rf(host_path)
