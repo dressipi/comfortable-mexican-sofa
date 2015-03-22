@@ -1,6 +1,6 @@
 #= require jquery
 #= require jquery_ujs
-#= require jquery-ui
+#= require jquery.ui-1.11.2
 #= require codemirror
 #= require codemirror/modes/css
 #= require codemirror/modes/htmlmixed
